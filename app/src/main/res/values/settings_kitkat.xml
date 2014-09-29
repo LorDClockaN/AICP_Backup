@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- jb-mr1 4.2.x -->
+    <string-array name="kitkat_categories">
+        <item>Statusbar</item>
+    </string-array>
+
+    <string-array name="kitkat_cat_statusbar">
+        <item>statusbar_6bar_signal</item>
+        <item>clock_use_second</item>
+        <item>statusbar_date</item>
+        <item>smart_pulldown</item>
+        <item>notification_brightness_slider</item>
+        <item>status_bar_custom_header</item>
+        <item>status_bar_network_hide</item>
+        <item>less_notification_sounds</item>
+        <item>heads_up_enabled</item>
+        <item>notification_swipe</item>
+        <item>noti_reminder_enabled</item>
+        <item>noti_reminder_interval</item>
+        <item>noti_reminder_sound</item>
+        <item>noti_reminder_ringtone</item>
+        <item>sms_breath</item>
+        <item>missed_call_breath</item>
+        <item>voicemail_breath</item>
+    </string-array>
+</resources>

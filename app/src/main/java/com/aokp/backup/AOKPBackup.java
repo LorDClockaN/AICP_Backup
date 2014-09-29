@@ -76,6 +76,7 @@ public class AOKPBackup extends Application {
             case Build.VERSION_CODES.JELLY_BEAN:
             case Build.VERSION_CODES.ICE_CREAM_SANDWICH:
             case Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1:
+            case Build.VERSION_CODES.KITKAT:
                 return true;
         }
 

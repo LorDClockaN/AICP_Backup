@@ -29,6 +29,7 @@ public class DropboxSyncService extends IntentService {
     private static final String TAG = DropboxSyncService.class.getSimpleName();
     public static final String ACTION_DELETE_BACKUP = "com.aokp.backup.DropboxSyncService.ACTION_DELETE_BACKUP";
     public static final String ACTION_UNLINK = "com.aokp.backup.DropboxSyncService.ACTION_UNLINK";
+    public static final boolean DROPBOX_ENABLED = false;
 
     private DbxAccountManager mDbxAcctMgr;
 
@@ -69,7 +70,7 @@ public class DropboxSyncService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (!BuildConfig.DROPBOX_ENABLED) {
+        if (DROPBOX_ENABLED) {
             return;
         }
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.aokp.backup.AOKPBackup;
 import com.aokp.backup.BackupService.BackupFileSystemChange;
 import com.aokp.backup.BuildConfig;
+import com.aokp.backup.DropboxSyncService;
 import com.aokp.backup.R;
 import com.aokp.backup.R.drawable;
 import com.aokp.backup.R.id;
@@ -59,7 +60,7 @@ public class BackupListFragment extends ListFragment {
         mAdapter = new BackupListArrayAdapter(getActivity(), R.id.backup_name, getBackups());
         setHasOptionsMenu(true);
 
-        if (BuildConfig.DROPBOX_ENABLED) {
+        if (DropboxSyncService.DROPBOX_ENABLED) {
             mDbxAcctMgr = DbxAccountManager.getInstance(getActivity().getApplicationContext(),
                     getString(R.string.dropbox_app_key),
                     getString(R.string.dropbox_app_secret));
@@ -149,7 +150,7 @@ public class BackupListFragment extends ListFragment {
                 icon.setImageResource(drawable.ic_backup);
             }
 
-            if (BuildConfig.DROPBOX_ENABLED) {
+            if (DropboxSyncService.DROPBOX_ENABLED) {
                 try {
                     dropboxIcon.setVisibility(
                             DropboxUtils.isBackupSyncedToDropbox(mDbxAcctMgr, b)

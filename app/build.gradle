@@ -1,33 +1,29 @@
-apply from: 'release.gradle'
-
 apply plugin: 'android'
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.0.1"
+    compileSdkVersion 20
+    buildToolsVersion "20.0"
 
     project.archivesBaseName = "AOKP_Backup"
 
     defaultConfig {
         versionCode 48
         versionName "2.2.3"
-        minSdkVersion 15
-        targetSdkVersion 18
+        minSdkVersion 19
+        targetSdkVersion 19
     }
 
     buildTypes {
         debug {
             debuggable true
-            packageNameSuffix = ".debug"
             versionNameSuffix = "-DEBUG"
 
-            buildConfig "public final static boolean DROPBOX_ENABLED = false;"
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.android.support:support-v4:20.0.0'
 
     compile fileTree(dir: 'libs', include: '*.jar')
 

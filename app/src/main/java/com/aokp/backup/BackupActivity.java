@@ -93,7 +93,7 @@ public class BackupActivity extends Activity {
                 }
             }
 
-            if (BuildConfig.DROPBOX_ENABLED) {
+            if (DropboxSyncService.DROPBOX_ENABLED) {
                 mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(),
                         getString(R.string.dropbox_app_key),
                         getString(R.string.dropbox_app_secret));
@@ -218,7 +218,7 @@ public class BackupActivity extends Activity {
             inflater.inflate(R.menu.backup_activity, menu);
 
             mSyncWithDropboxMenuItem = menu.findItem(id.sync_with_dropbox);
-            if (BuildConfig.DROPBOX_ENABLED) {
+            if (DropboxSyncService.DROPBOX_ENABLED) {
                 mSyncWithDropboxMenuItem.setChecked(mDbxAcctMgr.hasLinkedAccount());
                 mSyncWithDropboxMenuItem.setVisible(true);
             } else {

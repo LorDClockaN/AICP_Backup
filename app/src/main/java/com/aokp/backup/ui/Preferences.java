@@ -28,10 +28,10 @@ public class Preferences extends PreferenceActivity {
 
             if (checked) {
                 // move from /sdcard/Android
-                Shell.SU.run("mv /sdcard/Android/data/com.aokp.backup/files/backups /sdcard/AOKP_Backup/");
+                Shell.SU.run("mv /sdcard/Android/data/com.android.settings/files/backups /sdcard/AOKP_Backup/");
             } else {
                 // move to /sdcard/Data
-                Shell.SU.run("mv /sdcard/AOKP_Backup/ /sdcard/Android/data/com.aokp.backup/files/backups");
+                Shell.SU.run("mv /sdcard/AOKP_Backup/ /sdcard/Android/data/com.android.settings/files/backups");
 
             }
 

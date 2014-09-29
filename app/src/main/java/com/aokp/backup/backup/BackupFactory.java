@@ -28,6 +28,9 @@ public class BackupFactory {
         else if (Build.VERSION.SDK_INT == VERSION_CODES.JELLY_BEAN_MR2)
             return R.array.jbmr2_categories;
 
+        else if (Build.VERSION.SDK_INT == VERSION_CODES.KITKAT)
+            return R.array.kitkat_categories;
+
         throw new UnsupportedSDKVersionException();
     }
 
@@ -45,6 +48,9 @@ public class BackupFactory {
         else if (Build.VERSION.SDK_INT == VERSION_CODES.JELLY_BEAN_MR2)
             return new JBMR2Backup(c, backupName);
 
+        else if (Build.VERSION.SDK_INT == VERSION_CODES.KITKAT)
+            return new Kitkat(c, backupName);
+
             return null;
     }
 
@@ -58,6 +64,8 @@ public class BackupFactory {
             return new JBMR1Backup(c, dirOrZip);
         else if (Build.VERSION.SDK_INT == VERSION_CODES.JELLY_BEAN_MR2)
             return new JBMR2Backup(c, dirOrZip);
+        else if (Build.VERSION.SDK_INT == VERSION_CODES.KITKAT)
+            return new Kitkat(c, dirOrZip);
 
             return null;
     }

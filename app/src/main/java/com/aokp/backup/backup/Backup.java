@@ -128,8 +128,8 @@ public abstract class Backup {
     private void init() {
         mSpecialCaseKeys = new ArrayList<SVal>();
         mBackupDir = Tools.getBackupDirectory(mContext);
-        rcFilesDir = new File("/data/data/com.aokp.romcontrol/files/");
-        rcPrefsDir = new File("/data/data/com.aokp.romcontrol/shared_prefs/");
+        rcFilesDir = new File("/data/data/com.android.settings/files/");
+        rcPrefsDir = new File("/data/data/com.android.settings/shared_prefs/");
 
         mBackupValues = new ArrayList<SVal>();
         mCategoryFilter = new ArrayList<Integer>();

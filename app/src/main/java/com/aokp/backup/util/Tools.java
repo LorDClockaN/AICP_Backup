@@ -180,7 +180,7 @@ public class Tools {
     public static String getROMVersion() {
         String modVersion = Tools.getInstance().getProp("ro.modversion");
         String cmVersion = Tools.getInstance().getProp("ro.cm.version");
-        String aokpVersion = Tools.getInstance().getProp("ro.aokp.version");
+        String aokpVersion = Tools.getInstance().getProp("ro.aicp.version");
         if (modVersion != null)
             return modVersion;
         else if (cmVersion != null)
@@ -192,7 +192,7 @@ public class Tools {
     }
 
     public static Integer getAOKPGooVersion() {
-        String version = Tools.getInstance().getProp("ro.goo.version");
+        String version = Tools.getInstance().getProp("ro.aicp.version");
         try {
             return version != null && !version.isEmpty() ? Integer.parseInt(version) : -1;
         } catch (Exception e) {
@@ -212,7 +212,7 @@ public class Tools {
         if (mROMControlPid != null) {
             return mROMControlPid;
         }
-        List<String> result = Shell.SU.run("ls -ld /data/data/com.aokp.romcontrol/ | awk '{print $3}' | less");
+        List<String> result = Shell.SU.run("ls -ld /data/data/com.android.settings/ | awk '{print $3}' | less");
         if (result != null && !result.isEmpty()) {
             return result.get(0);
         }

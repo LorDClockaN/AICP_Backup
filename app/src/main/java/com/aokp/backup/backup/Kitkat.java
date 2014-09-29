@@ -15,34 +15,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JBMR1Backup extends Backup {
+public class Kitkat extends Backup {
 
-    public static final int CAT_GENERAL_UI = 0;
-    public static final int CAT_NAVIGATION_BAR = 1;
-    public static final int CAT_LOCKSCREEN_OPTS = 2;
-    public static final int CAT_POWERMENU = 3;
-    public static final int CAT_LED_OPTIONS = 4;
-    public static final int CAT_SOUND = 5;
-    public static final int CAT_SB_TOGGLES = 6;
-    public static final int CAT_SB_CLOCK = 7;
-    public static final int CAT_SB_BATTERY = 8;
-    public static final int CAT_SB_SIGNAL = 9;
-    public static final int CAT_RIBBONS = 10;
-    public static final int CAT_QUIET_HOURS = 11;
-    public static final int NUM_STATUSBAR = 12;
-    public static final int NUM_CATS = 13;
+    public static final int CAT_STATUSBAR = 0;
+    public static final int NUM_CATS = 1;
     public static final String NULL_CONSTANT = "**null**";
 
     static String rcUser;
 
 
 
-    public JBMR1Backup(Context c, String name) {
+    public Kitkat(Context c, String name) {
         super(c, name);
         mSuCommands = new ArrayList<String>();
     }
 
-    public JBMR1Backup(Context c, File zip) throws IOException {
+    public Kitkat(Context c, File zip) throws IOException {
         super(c, zip);
         mSuCommands = new ArrayList<String>();
     }
@@ -61,30 +49,8 @@ public class JBMR1Backup extends Backup {
     public String[] getSettingsCategory(int categoryIndex) {
         Resources res = mContext.getResources();
         switch (categoryIndex) {
-            case CAT_GENERAL_UI:
-                return res.getStringArray(R.array.jbmr1_cat_general_ui);
-            case CAT_NAVIGATION_BAR:
-                return res.getStringArray(R.array.jbmr1_cat_navigation_bar);
-            case CAT_LED_OPTIONS:
-                return res.getStringArray(R.array.jbmr1_cat_led);
-            case CAT_LOCKSCREEN_OPTS:
-                return res.getStringArray(R.array.jbmr1_cat_lockscreen);
-            case CAT_SB_BATTERY:
-                return res.getStringArray(R.array.jbmr1_cat_statusbar_battery);
-            case CAT_SB_CLOCK:
-                return res.getStringArray(R.array.jbmr1_cat_statusbar_clock);
-            case CAT_SB_TOGGLES:
-                return res.getStringArray(R.array.jbmr1_cat_statusbar_toggles);
-            case CAT_POWERMENU:
-                return res.getStringArray(R.array.jbmr1_cat_powermenu);
-            case CAT_SOUND:
-                return res.getStringArray(R.array.jbmr1_cat_sound);
-            case CAT_SB_SIGNAL:
-                return res.getStringArray(R.array.jbmr1_cat_statusbar_signal);
-            case CAT_RIBBONS:
-                return res.getStringArray(R.array.jbmr1_cat_ribbons);
-            case CAT_QUIET_HOURS:
-                return res.getStringArray(R.array.jbmr1_cat_quiet_hours);
+            case CAT_STATUSBAR:
+                return res.getStringArray(R.array.kitkat_cat_statusbar);
             default:
                 return null;
         }
@@ -95,24 +61,7 @@ public class JBMR1Backup extends Backup {
         String outDir = Tools.getTempBackupDirectory(mContext, false).getAbsolutePath();
 
         boolean found = false;
-        if (setting.equals("disable_boot_animation")) {
-            if (!new File("/system/media/bootanimation.zip").exists()) {
-                found = true;
-            }
-
-        } else if (setting.equals("disable_boot_audio")) {
-            if (!new File("/system/media/boot_audio.mp3").exists()) {
-
-                found = true;
-            }
-
-        } else if (setting.equals("disable_bug_mailer")) {
-            if (!new File("/system/bin/bugmailer.sh").exists()) {
-
-                found = true;
-            }
-
-        } else if (setting.equals("navigation_bar_icons")) {
+        if (setting.equals("navigation_bar_icons")) {
             ContentResolver resolver = mContext.getContentResolver();
             for (int i = 0; i < 7; i++) {
                 String iconSetting = "navigation_custom_app_icon_" + i;
@@ -120,7 +69,7 @@ public class JBMR1Backup extends Backup {
                 if (iconValue != null) {
                     if (iconValue.length() > 0 && !iconValue.equalsIgnoreCase(NULL_CONSTANT)) {
                         mBackupValues.add(new SVal(iconSetting, iconValue));
-                        File icon = new File("/data/data/com.aokp.romcontrol/files/navbar_icon_" + i + ".png");
+                        File icon = new File("/data/data/com.android.settings/files/navbar_icon_" + i + ".png");
                         if (icon.exists()) {
                             String cmd = "cp  " + icon.getAbsolutePath() + " " + outDir;
                             mSuCommands.add(cmd);
@@ -165,39 +114,20 @@ public class JBMR1Backup extends Backup {
                     }
                 }
             }
-
-        } else if (setting.equals("rc_prefs")) {
-            final String[] xmlFiles = {
-                    "WeatherServicePreferences.xml", "_has_set_default_values.xml",
-                    "aokp_weather.xml", "vibrations.xml"
-            };
-            for (String xmlName : xmlFiles) {
-                File xml = new File("/data/data/com.aokp.romcontrol/shared_prefs/" + xmlName);
-                if (xml.exists()) {
-                    found = true;
-                    String command = "cp " + xml.getAbsolutePath() + " " + outDir + xml.getName();
-                    Log.e(TAG, command);
-                    mSuCommands.add(command);
-//                    List<String> result = Shell.SU.run(command);
-//                    if (result != null) {
-//                        Log.e(TAG, "run success");
-//                    } else {
-//                        Log.e(TAG, "error");
-//                    }
-                }
-            }
         }
+
         if (found) {
             mSpecialCaseKeys.add(new SVal(setting, "1"));
         }
 
         return found;
+
     }
 
     public boolean okayToRestore() {
         boolean result = false;
 
-        if (Tools.getROMVersion().contains("aokp")) {
+        if (Tools.getROMVersion().contains("aicp")) {
             result = true;
         }
 
@@ -220,12 +150,6 @@ public class JBMR1Backup extends Backup {
         } else if (setting.equals("disable_boot_audio") && value.equals("1")) {
             if (new File("/system/media/boot_audio.mp3").exists()) {
                 mSuCommands.add("mv /system/media/boot_audio.mp3 /system/media/boot_audio.unicorn");
-            }
-
-            return true;
-        } else if (setting.equals("disable_bug_mailer") && value.equals("1")) {
-            if (new File("/system/bin/bugmailer.sh").exists()) {
-                mSuCommands.add("mv /system/bin/bugmailer.sh /system/bin/bugmailer.sh.unicorn");
             }
 
             return true;
@@ -283,33 +207,6 @@ public class JBMR1Backup extends Backup {
             }
 //            Tools.chmodAndOwn(target, "0660", rcUser);
 
-            return true;
-        } else if (setting.equals("rc_prefs")) {
-            File outDir = Tools.getTempRestoreDirectory(mContext, false);
-
-            String[] xmlFiles = {
-                    "_has_set_default_values.xml",
-                    "vibrations.xml"
-            };
-            if (rcUser != null && !rcUser.isEmpty()) {
-                for (String xmlName : xmlFiles) {
-                    File xml = new File(rcPrefsDir, xmlName);
-                    if (xml.exists()) {
-                        // remove previous
-                        mSuCommands.add("rm " + xml.getAbsolutePath());
-                        // copy backed up file
-                        mSuCommands.add("cp " + outDir + "/" + xml.getName() + " "
-                                + xml.getAbsolutePath());
-                        List<String> chmodCommands = Tools.getChmodAndOwnCommand(xml, "0660", rcUser);
-                        for (String cmd : chmodCommands) {
-                            mSuCommands.add(cmd);
-                        }
-//                        Tools.chmodAndOwn(xml, "0660", rcUser);
-                    }
-                }
-            } else {
-                Log.e(TAG, "Error getting RC user");
-            }
             return true;
         }
 
